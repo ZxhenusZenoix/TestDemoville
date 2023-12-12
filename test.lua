@@ -96,6 +96,7 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 					local pP, pO = v:FindFirstChild("partPosition").Value, v:FindFirstChild("partOrientation").Value
 					parts[v] = CFrame.new(pP.X, pP.Y, pP.Z) * CFrame.fromOrientation(pO.X, pO.Y, pO.Z)
 					v.CustomPhysicalProperties = PartPP
+					v.Massless = true
 				end
 			end
 			table.sort(parts, function(a, b)
