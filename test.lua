@@ -105,7 +105,9 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 
 			for part:BasePart, cframe:CFrame in pairs(parts) do
 				print(part, cframe)
-				if part.Parent and (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-cframe.Rotation).Magnitude < 180 then
+				print((part.Position-cframe.Position).Magnitude)
+				print((part.Orientation-cframe.Rotation).Magnitude)
+				if part.Parent and (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-cframe:ToOrientation()).Magnitude < 180 then
 					cPivotTo(Character, cframe, true)
 					task.wait()
 					part.CustomPhysicalProperties = PartPP
