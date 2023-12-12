@@ -96,7 +96,7 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 					print(v.Name, v:FindFirstChild("partPosition").Value, v:FindFirstChild("partOrientation").Value)
 					local pP = v:FindFirstChild("partPosition").Value -- THE FUCK YOU MEAN??
 					warn(CFrame.new(pP.X, pP.Y, pP.Z)) -- fuck you roblox
-					parts[v] = CFrame.new(v.partPosition.Value) * CFrame.fromOrientation(v:FindFirstChild("partOrientation").Value)
+					parts[v] = CFrame.new(v:FindFirstChild("partPosition").Value) * CFrame.fromOrientation(v:FindFirstChild("partOrientation").Value)
 					print("HELLLLLLLLOOOOOOOO")
 					v.CustomPhysicalProperties = PartPP
 				end
