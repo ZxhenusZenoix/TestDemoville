@@ -93,9 +93,9 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 			local parts = {}
 			for _, v:BasePart in ipairs(building:GetDescendants()) do
 				if v:IsA("BasePart") and v:FindFirstChild("health") and v:FindFirstChild("partPosition") and not v.Anchored then
-					print(v.Name, v:FindFirstChild("partPosition").Value, v:FindFirstChild("partOrientation").Value)
-					local pP, pO = v:FindFirstChild("partPosition").Value, v:FindFirstChild("partOrientation").Value  -- THE FUCK YOU MEAN??
+					local pP, pO = v:FindFirstChild("partPosition").Value, v:FindFirstChild("partOrientation").Value
 					parts[v] = CFrame.new(pP.X, pP.Y, pP.Z) * CFrame.fromOrientation(pO.X, pO.Y, pO.Z)
+					print(parts[v])
 					v.CustomPhysicalProperties = PartPP
 				end
 			end
@@ -105,6 +105,7 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 			setModelsNoCollision(building, Character)
 
 			for part:BasePart, cframe:CFrame in pairs(parts) do
+				print(part, cframe)
 				if part.Parent and (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-cframe.Rotation).Magnitude < 180 then
 					cPivotTo(Character, cframe, true)
 					task.wait()
