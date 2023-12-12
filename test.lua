@@ -1,4 +1,3 @@
-print("test test")
 --[[if game.PlaceId ~= 1296094037 then
 	warn("wrong game fool")
 	return
@@ -95,9 +94,8 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 			for _, v:BasePart in ipairs(building:GetDescendants()) do
 				if v:IsA("BasePart") and v:FindFirstChild("health") and v:FindFirstChild("partPosition") and not v.Anchored then
 					print(v.Name, v:FindFirstChild("partPosition").Value, v:FindFirstChild("partOrientation").Value)
-					local pP = v:FindFirstChild("partPosition").Value -- THE FUCK YOU MEAN??
-					parts[v] = CFrame.new(v:FindFirstChild("partPosition").Value) * CFrame.fromOrientation(v:FindFirstChild("partOrientation").Value)
-					print("HELLLLLLLLOOOOOOOO")
+					local pP, pO = v:FindFirstChild("partPosition").Value, v:FindFirstChild("partOrientation").Value  -- THE FUCK YOU MEAN??
+					parts[v] = CFrame.new(pP.X, pP.Y, pP.Z) * CFrame.fromOrientation(pO.X, pO.Y, pO.Z)
 					v.CustomPhysicalProperties = PartPP
 				end
 			end
