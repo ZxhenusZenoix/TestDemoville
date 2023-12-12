@@ -1,3 +1,4 @@
+print("test test")
 --[[if game.PlaceId ~= 1296094037 then
 	warn("wrong game fool")
 	return
