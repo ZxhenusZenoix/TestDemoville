@@ -12,7 +12,7 @@ while not game:IsLoaded() do
 	task.wait()
 end
 
-_G.buildingowoloaded = true
+--_G.buildingowoloaded = true
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -104,11 +104,7 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 			setModelsNoCollision(building, Character)
 
 			for part:BasePart, cframe:CFrame in pairs(parts) do
-				print(part, cframe)
-				print((part.Position-cframe.Position).Magnitude)
-				print(part.Orientation, cframe:ToOrientation())
-				print((part.Orientation-cframe:ToOrientation()).Magnitude)
-				if part.Parent and (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-cframe:ToOrientation()).Magnitude < 180 then
+				if part.Parent and (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-part:FindFirstChild("partOrientation").Value).Magnitude < 180 then
 					cPivotTo(Character, cframe, true)
 					task.wait()
 					part.CustomPhysicalProperties = PartPP
