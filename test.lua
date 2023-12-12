@@ -92,10 +92,9 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 
 			local parts = {}
 			for _, v:BasePart in ipairs(building:GetDescendants()) do
-				if v:IsA("BasePart") and v:FindFirstChild("health") and not v.Anchored then
-					local pP = v:FindFirstChild("partPosition").Value
-					local pO = v:FindFirstChild("partOrientation").Value
-					parts[v] = CFrame.new(pP.X, pP.Y, pP.Z) * CFrame.fromOrientation(pO.X, pO.Y, pO.Z)
+				if v:IsA("BasePart") and v:FindFirstChild("health") and v:FindFirstChild("partPosition") and not v.Anchored then
+					print(v.Name)
+					parts[v] = CFrame.new(v.partPosition.Value) * CFrame.fromOrientation(v:FindFirstChild("partOrientation").Value)
 					v.CustomPhysicalProperties = PartPP
 				end
 			end
