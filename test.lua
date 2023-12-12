@@ -83,7 +83,9 @@ end
 
 local PartPP = PhysicalProperties.new(0, 0, 0, 0, 0)
 
-local function demolishBuilding(building:Model):{TimeTaken:number}
+local yourtoggle = false
+local othertoggle = false
+local function demolishBuilding(building:Model, intent:string):{TimeTaken:number}
 	local startTime = os.clock()
 	if building:FindFirstChild("buildingStatus").Value == "inProgress" and building:FindFirstChild("contractedPlayer").Value then
 		local Character = LocalPlayer.Character
@@ -108,12 +110,18 @@ local function demolishBuilding(building:Model):{TimeTaken:number}
 				if part.Parent and (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-part:FindFirstChild("partOrientation").Value).Magnitude < 180 then
 					cPivotTo(Character, cframe, true)
 					local partTime = os.clock()
-					while (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-part:FindFirstChild("partOrientation").Value).Magnitude < 180 and os.clock()-partTime < 5 do
+					while part and part.Parent and (part.Position-cframe.Position).Magnitude < 8 and (part.Orientation-part:FindFirstChild("partOrientation").Value).Magnitude < 180 and os.clock()-partTime < 5 do
+						print((part.Orientation-part:FindFirstChild("partOrientation").Value).Magnitude)
+						
 						cPivotTo(Character, cframe, true)
 						part.CustomPhysicalProperties = PartPP
 						part.AssemblyLinearVelocity = hugeVector3
 						part.AssemblyAngularVelocity = hugeVector3
 						task.wait()
+						
+						if intent == "your" and not yourtoggle then
+							return os.clock()-startTime
+						end
 					end
 				end
 			end
@@ -141,7 +149,7 @@ other.Size = UDim2.new(0, 200, 0, 50)
 other.Text = "owo other's buildings"
 other.TextScaled = true
 
-local yourtoggle = false
+
 your.Activated:Connect(function()
 	yourtoggle = not yourtoggle
 	your.BackgroundColor3 = yourtoggle and Color3.new(0,1,0) or Color3.new(1,0,0)
